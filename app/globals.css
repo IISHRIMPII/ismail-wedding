@@ -1,0 +1,141 @@
+@import url('https://fonts.googleapis.com/css2?family=Amiri:ital,wght@0,400;0,700;1,400;1,700&family=Noto+Naskh+Arabic:wght@400;500;600;700&family=Cormorant+Garamond:ital,wght@0,300;0,400;0,500;1,300;1,400&display=swap');
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+:root {
+  --navy: #1a2a4a;
+  --navy-light: #243560;
+  --navy-dark: #111d33;
+  --cream: #f5f0e8;
+  --cream-light: #fdfaf5;
+  --cream-dark: #ede6d6;
+  --gold: #c9a96e;
+  --gold-light: #dfc08a;
+  --gold-dark: #a8844a;
+}
+
+* { box-sizing: border-box; margin: 0; padding: 0; }
+html { scroll-behavior: smooth; }
+
+body {
+  background-color: var(--cream);
+  color: var(--navy);
+  font-family: 'Noto Naskh Arabic', 'Cormorant Garamond', serif;
+  -webkit-font-smoothing: antialiased;
+}
+
+.rtl { direction: rtl; text-align: right; }
+.ltr { direction: ltr; text-align: left; }
+
+/* ─── Islamic Geometric Pattern Backgrounds ─── */
+.pattern-bg {
+  background-color: #eeebe4;
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%23eeebe4'/%3E%3Cg fill='none' stroke='%23c9a96e' stroke-width='0.5' opacity='0.22'%3E%3Cpolygon points='30,1 59,30 30,59 1,30'/%3E%3Cpolygon points='30,10 50,30 30,50 10,30'/%3E%3Cline x1='30' y1='1' x2='30' y2='10'/%3E%3Cline x1='59' y1='30' x2='50' y2='30'/%3E%3Cline x1='30' y1='59' x2='30' y2='50'/%3E%3Cline x1='1' y1='30' x2='10' y2='30'/%3E%3Cline x1='1' y1='1' x2='10' y2='10'/%3E%3Cline x1='59' y1='1' x2='50' y2='10'/%3E%3Cline x1='59' y1='59' x2='50' y2='50'/%3E%3Cline x1='1' y1='59' x2='10' y2='50'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+.navy-pattern-bg {
+  background-color: var(--navy);
+  background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='60' height='60'%3E%3Crect width='60' height='60' fill='%231a2a4a'/%3E%3Cg fill='none' stroke='%23c9a96e' stroke-width='0.5' opacity='0.18'%3E%3Cpolygon points='30,1 59,30 30,59 1,30'/%3E%3Cpolygon points='30,10 50,30 30,50 10,30'/%3E%3Cline x1='30' y1='1' x2='30' y2='10'/%3E%3Cline x1='59' y1='30' x2='50' y2='30'/%3E%3Cline x1='30' y1='59' x2='30' y2='50'/%3E%3Cline x1='1' y1='30' x2='10' y2='30'/%3E%3Cline x1='1' y1='1' x2='10' y2='10'/%3E%3Cline x1='59' y1='1' x2='50' y2='10'/%3E%3Cline x1='59' y1='59' x2='50' y2='50'/%3E%3Cline x1='1' y1='59' x2='10' y2='50'/%3E%3C/g%3E%3C/svg%3E");
+}
+
+/* ─── Ornamental Dividers ─── */
+.ornament-divider {
+  display: flex;
+  align-items: center;
+  gap: 12px;
+  margin: 0 auto;
+}
+.ornament-divider::before,
+.ornament-divider::after {
+  content: '';
+  flex: 1;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold));
+  opacity: 0.5;
+}
+.ornament-divider::after {
+  background: linear-gradient(90deg, var(--gold), transparent);
+}
+
+.gold-divider {
+  width: 80px;
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  margin: 0 auto;
+}
+
+.gold-divider-full {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, var(--gold), transparent);
+  max-width: 320px;
+  margin: 0 auto;
+}
+
+/* ─── Invitation Card ─── */
+.invitation-card {
+  background: rgba(255,255,255,0.97);
+  border-radius: 24px;
+  border: 1px solid rgba(201,169,110,0.25);
+  box-shadow:
+    0 4px 6px -1px rgba(26,42,74,0.08),
+    0 20px 60px -10px rgba(26,42,74,0.18),
+    0 0 0 4px rgba(201,169,110,0.06);
+  overflow: hidden;
+}
+
+/* ─── Scroll indicator animation ─── */
+@keyframes scrollBounce {
+  0%, 100% { transform: translateY(0); opacity: 0.4; }
+  50% { transform: translateY(6px); opacity: 0.8; }
+}
+.scroll-hint { animation: scrollBounce 2s ease-in-out infinite; }
+
+/* ─── Number flip animation ─── */
+@keyframes flipIn {
+  from { transform: rotateX(-90deg); opacity: 0; }
+  to { transform: rotateX(0deg); opacity: 1; }
+}
+.flip-number { animation: flipIn 0.3s ease-out; }
+
+@layer components {
+  .section-title {
+    @apply text-2xl md:text-3xl font-semibold text-navy text-center mb-2;
+    font-family: 'Amiri', 'Noto Naskh Arabic', serif;
+  }
+  .section-subtitle {
+    @apply text-sm text-navy/55 text-center mb-8;
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+  .card {
+    @apply bg-white/90 backdrop-blur-sm rounded-2xl border border-gold/20 shadow-md p-6;
+  }
+  .card-hover {
+    @apply transition-all duration-300 hover:border-gold/40 hover:shadow-lg hover:-translate-y-0.5;
+  }
+  .btn-primary {
+    @apply bg-navy text-cream px-8 py-3 rounded-full text-sm font-medium
+           hover:bg-navy-light transition-all duration-300
+           disabled:opacity-40 disabled:cursor-not-allowed
+           shadow-md hover:shadow-lg active:scale-95
+           flex items-center justify-center gap-2;
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+  .btn-gold {
+    @apply bg-gold text-white px-8 py-3 rounded-full text-sm font-medium
+           hover:bg-gold-dark transition-all duration-300
+           shadow-md hover:shadow-lg active:scale-95;
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+  .input-field {
+    @apply w-full border border-navy/15 rounded-xl px-4 py-3 text-sm
+           bg-white/90 focus:outline-none focus:border-gold
+           focus:ring-2 focus:ring-gold/20 transition-all duration-200
+           placeholder:text-navy/30;
+    font-family: 'Noto Naskh Arabic', serif;
+  }
+  .input-field:focus {
+    @apply bg-white;
+  }
+}
