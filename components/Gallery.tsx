@@ -101,10 +101,7 @@ export default function Gallery({ lang }: GalleryProps) {
               <MediaCard
                 key={m.id}
                 item={m}
-                voted={votedIds.has(m.id)}
-                onVote={handleVote}
                 onOpen={setLightbox}
-                tr={tr}
               />
             ))}
           </div>
@@ -214,16 +211,10 @@ export default function Gallery({ lang }: GalleryProps) {
 
 function MediaCard({
   item,
-  voted,
-  onVote,
   onOpen,
-  tr,
 }: {
   item: Media;
-  voted: boolean;
-  onVote: (id: string) => void;
   onOpen: (m: Media) => void;
-  tr: any;
 }) {
   return (
     <div className="group relative rounded-xl overflow-hidden bg-white/8 border border-white/10 shadow-sm hover:border-gold/30 transition-all duration-300 hover:shadow-lg hover:scale-[1.02]">
@@ -248,17 +239,8 @@ function MediaCard({
       )}
       {/* Hover overlay */}
       <div className="absolute inset-0 bg-gradient-to-t from-black/60 via-transparent to-transparent opacity-0 group-hover:opacity-100 transition-opacity duration-300 pointer-events-none" />
-      <div className="p-2 flex items-center justify-between gap-1">
-        <p className="text-xs text-cream/60 truncate flex-1" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>{item.uploader_name}</p>
-        <button
-          onClick={() => onVote(item.id)}
-          disabled={voted}
-          className={`flex items-center gap-1 text-xs transition-all duration-200 flex-shrink-0 px-2 py-1 rounded-full ${
-            voted ? "text-gold bg-gold/15" : "text-cream/40 hover:text-gold hover:bg-gold/15"
-          }`}
-        >
-          ❤️ {item.votes}
-        </button>
+      <div className="p-2">
+        <p className="text-xs text-cream/60 truncate" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>{item.uploader_name}</p>
       </div>
     </div>
   );
