@@ -44,7 +44,7 @@ export default function Gallery({ lang }: GalleryProps) {
       toast.success(tr.voteSuccess);
       const newVoted = new Set(votedIds).add(id);
       setVotedIds(newVoted);
-      localStorage.setItem("votedMedia", JSON.stringify([...newVoted]));
+      localStorage.setItem("votedMedia", JSON.stringify(Array.from(newVoted)));
       fetchMedia();
     } catch {
       toast.error(tr.wishError);
