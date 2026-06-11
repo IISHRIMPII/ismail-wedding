@@ -1,14 +1,15 @@
 "use client";
 
 import { useEffect, useRef } from "react";
+import "leaflet/dist/leaflet.css";
 import { Lang, t } from "@/lib/i18n";
 
 interface MapProps {
   lang: Lang;
 }
 
-const LAT = 15.3694;
-const LNG = 44.191;
+const LAT = 23.630129535683917;
+const LNG = 58.189664421343764;
 
 export default function Map({ lang }: MapProps) {
   const tr = t[lang];
@@ -20,7 +21,6 @@ export default function Map({ lang }: MapProps) {
     if (typeof window === "undefined" || mapInstance.current) return;
 
     import("leaflet").then((L) => {
-      import("leaflet/dist/leaflet.css");
       if (!mapRef.current) return;
 
       const map = L.map(mapRef.current, {
