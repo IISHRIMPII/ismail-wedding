@@ -21,15 +21,6 @@ export default function Home() {
       <Gallery lang={lang} />
       <Guestbook lang={lang} />
 
-      <footer className="navy-pattern-bg py-10 px-6 text-center">
-        <div className="gold-divider-full mb-6" />
-        <p className="text-gold/60 text-base" style={{ fontFamily: "'Amiri', serif" }}>
-          بِسْمِ اللهِ الرَّحْمٰنِ الرَّحِيْمِ
-        </p>
-        <p className="text-cream/25 text-xs mt-3" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>
-          إسماعيل ٢٠٢٦ · {lang === "ar" ? "بمشيئة الله تعالى" : "By the will of Allah"}
-        </p>
-      </footer>
     </main>
   );
 }
