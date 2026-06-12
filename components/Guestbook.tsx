@@ -1,9 +1,8 @@
 "use client";
 
-import { useState, useEffect, useCallback } from "react";
+import { useState } from "react";
 import toast from "react-hot-toast";
 import { Lang, t } from "@/lib/i18n";
-import { Wish } from "@/lib/supabase";
 
 interface GuestbookProps {
   lang: Lang;
@@ -13,20 +12,10 @@ export default function Guestbook({ lang }: GuestbookProps) {
   const tr = t[lang];
   const isAr = lang === "ar";
 
-  const [wishes, setWishes] = useState<Wish[]>([]);
   const [name, setName] = useState("");
   const [message, setMessage] = useState("");
   const [loading, setLoading] = useState(false);
   const [sent, setSent] = useState(false);
-
-  const fetchWishes = useCallback(async () => {
-    const res = await fetch("/api/wishes");
-    if (res.ok) setWishes(await res.json());
-  }, []);
-
-  useEffect(() => {
-    fetchWishes();
-  }, [fetchWishes]);
 
   const handleSubmit = async (e: React.FormEvent) => {
     e.preventDefault();
@@ -41,7 +30,6 @@ export default function Guestbook({ lang }: GuestbookProps) {
       if (!res.ok) throw new Error();
       toast.success(tr.wishSuccess);
       setSent(true);
-      fetchWishes();
       setTimeout(() => {
         setSent(false);
         setName("");
@@ -53,13 +41,6 @@ export default function Guestbook({ lang }: GuestbookProps) {
       setLoading(false);
     }
   };
-
-  const avatarColors = [
-    "from-navy to-navy-light",
-    "from-gold-dark to-gold",
-    "from-[#2d4a6e] to-navy-light",
-    "from-gold to-gold-light",
-  ];
 
   return (
     <section className={`pattern-bg py-16 px-4 ${isAr ? "rtl" : "ltr"}`}>
@@ -125,45 +106,6 @@ export default function Guestbook({ lang }: GuestbookProps) {
         )}
       </div>
 
-      {/* Divider */}
-      {wishes.length > 0 && (
-        <div className="max-w-lg mx-auto mb-8">
-          <div className="flex items-center gap-3">
-            <div className="flex-1 h-px bg-navy/10" />
-            <p className="text-navy/35 text-xs" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>
-              {tr.allWishes} ({wishes.length})
-            </p>
-            <div className="flex-1 h-px bg-navy/10" />
-          </div>
-        </div>
-      )}
-
-      {/* Wishes list */}
-      <div className="max-w-lg mx-auto space-y-3">
-        {wishes.length === 0 ? (
-          <div className="text-center py-10">
-            <p className="text-navy/25 text-4xl mb-3">💌</p>
-            <p className="text-navy/35 text-sm" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>{tr.noWishes}</p>
-          </div>
-        ) : (
-          wishes.map((w, i) => (
-            <div key={w.id} className="card card-hover py-4 px-5">
-              <div className="flex items-start gap-3">
-                <div className={`w-9 h-9 rounded-full bg-gradient-to-br ${avatarColors[i % avatarColors.length]} flex items-center justify-center text-white text-sm font-bold flex-shrink-0 shadow-sm`}>
-                  {w.name[0]?.toUpperCase()}
-                </div>
-                <div className="flex-1 min-w-0">
-                  <p className="font-bold text-navy text-sm" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>{w.name}</p>
-                  <p className="text-navy/65 text-sm mt-1 leading-relaxed" style={{ fontFamily: "'Noto Naskh Arabic', serif" }}>{w.message}</p>
-                  <p className="text-navy/25 text-[11px] mt-2">
-                    {new Date(w.created_at).toLocaleDateString(lang === "ar" ? "ar-SA" : "en-GB")}
-                  </p>
-                </div>
-              </div>
-            </div>
-          ))
-        )}
-      </div>
 
     </section>
   );
